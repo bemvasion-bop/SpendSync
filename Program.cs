@@ -125,11 +125,18 @@ app.UseHttpsRedirection();
 // Configure static files for uploads folder
 app.UseStaticFiles(); // Serve from wwwroot (default)
 
+// Ensure uploads folder exists
+var uploadsPath = Path.Combine(builder.Environment.ContentRootPath, "uploads");
+
+if (!Directory.Exists(uploadsPath))
+{
+    Directory.CreateDirectory(uploadsPath);
+}
+
 // Serve uploaded receipts from uploads folder
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
-        Path.Combine(builder.Environment.ContentRootPath, "uploads")),
+    FileProvider = new PhysicalFileProvider(uploadsPath),
     RequestPath = "/uploads"
 });
 
