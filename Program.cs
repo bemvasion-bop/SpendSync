@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.FileProviders;
 using LedgerFlow.API.Services;
-
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 
 
@@ -41,7 +41,8 @@ builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<PermissionService>();
 builder.Services.AddScoped<DatabaseSeeder>(); // Demo data seeding service
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
