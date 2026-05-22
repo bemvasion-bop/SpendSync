@@ -1,0 +1,10 @@
+bin
+obj
+node_modules
+dist
+build
+.git
+.vscode
+uploads
+landing-page/node_modules
+ledgerflow-frontend/node_modules
